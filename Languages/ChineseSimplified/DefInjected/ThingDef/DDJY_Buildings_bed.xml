@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <DDJY_BondageBed.label>束缚床</DDJY_BondageBed.label>
+  <DDJY_BondageBed.description>把囚犯绑在上面，以确保他们不会给你制造麻烦。</DDJY_BondageBed.description>
+
+  <DDJY_BarCage.label>笼子</DDJY_BarCage.label>
+  <DDJY_BarCage.description>一种人身大小的金属笼子，用于关押囚犯。它离地面很低且不舒适。</DDJY_BarCage.description>
+
+  <DDJY_BindingCross.label>十字架</DDJY_BindingCross.label>
+  <DDJY_BindingCross.description>十字架，用于束缚囚犯。以前被称为"真十字架"。</DDJY_BindingCross.description>
+
+  <DDJY_SaltireCross.label>圣安得烈十字架</DDJY_SaltireCross.label>
+  <DDJY_SaltireCross.description>一种X字形的十字架，用于束缚囚犯的展开姿势，通常称为X字架、X型框架或盐字十字架。以前被称为"拷问十字架"。</DDJY_SaltireCross.description>
+
+  <DDJY_RoundCage.label>吊笼</DDJY_RoundCage.label>
+  <DDJY_RoundCage.description>一种用于关押活着的囚犯的吊笼。</DDJY_RoundCage.description>
+
+  <DDJY_PrisonerPole.label>囚犯柱</DDJY_PrisonerPole.label>
+  <DDJY_PrisonerPole.description>一种简单而高大的柱子，用于束缚囚犯。</DDJY_PrisonerPole.description>
+
+  <DDJY_Pillory.label>颈手枷</DDJY_Pillory.label>
+  <DDJY_Pillory.description>一种用于束缚囚犯的框架，带有3个孔用于固定他们的头和手。</DDJY_Pillory.description>
+
+</LanguageData>

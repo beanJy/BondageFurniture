@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+
+  <!-- 束缚床 -->
+
+  <DDJY_BondageBed.label>bondageBed</DDJY_BondageBed.label>
+  <DDJY_BondageBed.description>Bound prisoners on it to make sure that they can't make trouble for you.</DDJY_BondageBed.description>
+
+
+  <!-- 笼子 -->
+
+  <DDJY_BarCage.label>Bar Cage</DDJY_BarCage.label>
+  <DDJY_BarCage.description>A human-sized metal bar cage for holding prisoners. It's low on the ground and uncomfortable.</DDJY_BarCage.description>
+
+
+  <!-- 十字架 -->
+
+  <DDJY_BindingCross.label>Binding Cross</DDJY_BindingCross.label>
+  <DDJY_BindingCross.description>A cross shaped framework used to bound prisoners. Previously labeled "True Cross".</DDJY_BindingCross.description>
+
+
+  <!-- X形十字架 -->
+
+  <DDJY_SaltireCross.label>Saltire Cross</DDJY_SaltireCross.label>
+  <DDJY_SaltireCross.description>An X-shaped framework used to bound prisoners in spreadeagle position, commonly known as X-cross, X-frame, or saltire cross. Previously labeled "Torture Cross".</DDJY_SaltireCross.description>
+
+
+  <!-- 挂笼 -->
+
+  <DDJY_RoundCage.label>Round Cage</DDJY_RoundCage.label>
+  <DDJY_RoundCage.description>A gibbet cage for living prisoners.</DDJY_RoundCage.description>
+
+
+  <!-- 囚犯柱 -->
+
+  <DDJY_PrisonerPole.label>Prisoner Pole</DDJY_PrisonerPole.label>
+  <DDJY_PrisonerPole.description>A simple, tall pole used to bound prisoners.</DDJY_PrisonerPole.description>
+
+
+  <!-- 颈手枷 -->
+
+  <DDJY_Pillory.label>Pillory</DDJY_Pillory.label>
+  <DDJY_Pillory.description>A framework used to bound prisoners, with 3 holes for securing their head and hands.</DDJY_Pillory.description>
+
+
+</LanguageData>

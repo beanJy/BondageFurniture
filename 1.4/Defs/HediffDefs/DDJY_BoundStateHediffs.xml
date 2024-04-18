@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+  <HediffDef Name="DDJY_DarkHediffsBase" Abstract="True">
+    <hediffClass>Hediff</hediffClass>
+    <defaultLabelColor>(0.8, 0.8, 0.2)</defaultLabelColor>
+    <makesSickThought>false</makesSickThought>
+    <isBad>false</isBad>
+    <tendable>false</tendable>
+    <scenarioCanAdd>false</scenarioCanAdd>
+  </HediffDef>
+  <HediffDef ParentName="DDJY_DarkHediffsBase">
+    <defName>DDJY_Hediff_BondageBed</defName>
+    <label>bondage</label>
+    <labelNoun>bondage</labelNoun>
+    <description>bondage</description>
+    <stages>
+      <li>
+        <capMods>
+          <li>
+            <capacity>Manipulation</capacity>
+            <setMax>0</setMax>
+          </li>
+          <li>
+            <capacity>Moving</capacity>
+            <setMax>0</setMax>
+          </li>
+        </capMods>
+      </li>
+    </stages>
+  </HediffDef>
+</Defs>
