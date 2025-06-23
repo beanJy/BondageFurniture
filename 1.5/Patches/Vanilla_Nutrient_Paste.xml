@@ -1,0 +1,15 @@
+<Patch>
+    <Operation Class="PatchOperationFindMod">
+      <mods>
+      <li>Ideology</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDefs[defName="DDJY_BaseBondageBed"]/comps</xpath>
+      <value>
+        <li Class="PipeSystem.CompProperties_Resource">
+          <pipeNet>VNPE_NutrientPasteNet</pipeNet>
+        </li>
+      </value>
+    </match>
+  </Operation>
+</Patch>
