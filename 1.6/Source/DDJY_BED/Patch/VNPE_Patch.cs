@@ -86,11 +86,7 @@ namespace DDJY_BED.Patch
             var comp = __instance.GetComp<CompResource>();
             if (comp != null && comp.PipeNet != null)
             {
-                float stored = comp.PipeNet.Stored;
-                string name = comp.PipeNet.def.resource.name;
-                string unit = comp.PipeNet.def.resource.unit;
-                StringBuilder pipeSystem_Stored = new StringBuilder();
-                pipeSystem_Stored.AppendInNewLine("\n" + "PipeSystem_Stored".Translate(name) + stored.ToString("F0") + " " + unit);
+                String pipeSystem_Stored = "\n" + comp.CompInspectStringExtra();
                 __result += pipeSystem_Stored;
             }
         }
