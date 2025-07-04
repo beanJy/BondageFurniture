@@ -1,0 +1,503 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+ <ThingDef Name="DDJY_BaseBondageBed" ParentName="FurnitureWithQualityBase" Abstract="True"> 
+    <defName>DDJY_BaseBondageBed</defName>
+    <thingClass>DDJY_BED.Building_BondageBed</thingClass>
+    <drawGUIOverlay>true</drawGUIOverlay>
+    <canOverlapZones>false</canOverlapZones>
+    <placeWorkers>
+      <li>PlaceWorker_ShowFacilitiesConnections</li>
+    </placeWorkers>
+    <passability>PassThroughOnly</passability>
+    <defaultPlacingRot>South</defaultPlacingRot>
+    <comps>
+      <!-- 设施影响 梳妆台 桌子之类  继承bed必须实现的接口，没有使用到-->
+      <li Class="CompProperties_AffectedByFacilities">
+        <linkableFacilities>
+        </linkableFacilities>
+      </li>
+      <!-- 继承bed必须实现的接口，没有使用到 -->
+      <li Class="CompProperties_AssignableToPawn">
+        <drawAssignmentOverlay>false</drawAssignmentOverlay>
+        <compClass>CompAssignableToPawn</compClass>
+     </li>
+     <!-- 添加移除束缚状态方法 -->
+      <li Class="CompProperties_UseEffect">
+        <compClass>DDJY_BED.CompEffectBondageBed</compClass>
+      </li>
+    </comps>
+ </ThingDef>
+  <!-- 束缚床 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_BondageBed</defName>
+    <label>bondageBed</label>
+    <description>Bound prisoners on it to make sure that they can't make trouble for you.</description>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/BondageBed</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(4,4)</drawSize>
+      <color>(62,164,249)</color>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>  
+    <drawerType>MapMeshAndRealTime</drawerType> 
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <gas>
+          <li>
+            <graphicData>
+              <texPath>Things/Building/Furniture/Bed/BondageBedLayerA</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <shaderType>CutoutComplex</shaderType>
+              <drawSize>(4,4)</drawSize>
+            </graphicData>
+            <altitudeLayer>Pawn</altitudeLayer>
+          </li>
+        </gas>
+      </li>
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <Beauty>1</Beauty>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.75</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,2)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>45</costStuffCount>
+    <costList>
+      <Cloth>20</Cloth>
+    </costList>
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+    </building>
+    <fillPercent>0.4</fillPercent>
+    <pathCost>60</pathCost>
+    <staticSunShadowHeight>0.17</staticSunShadowHeight>
+    <castEdgeShadows>True</castEdgeShadows>
+    <designationHotKey>Misc2</designationHotKey>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+  <!-- 笼子 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_BarCage</defName>
+    <label>Bar Cage</label>
+    <description>A human-sized metal bar cage for holding prisoners. It's low on the ground and uncomfortable.</description>  
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/BarCage</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(4,4)</drawSize>
+      <color>(62,164,249)</color>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>
+    <drawerType>MapMeshAndRealTime</drawerType>
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <gas>
+          <li>
+            <graphicData>
+              <texPath>Things/Building/Furniture/Bed/BarCageLayerA</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <shaderType>CutoutComplex</shaderType>
+              <drawSize>(4,4)</drawSize>
+            </graphicData>    
+           <altitudeLayer>Pawn</altitudeLayer>				
+          </li>
+        </gas>
+      </li>
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <TerrorSource MayRequire="Ludeon.RimWorld.Ideology">40</TerrorSource>
+      <Beauty>1</Beauty>
+      <WorkToBuild>1200</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.09</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,2)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>45</costStuffCount>
+    <!-- 额外固定消耗 -->
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>4</bed_healPerDay>
+    </building>
+    <fillPercent>0.4</fillPercent>
+    <pathCost>60</pathCost>
+    <staticSunShadowHeight>0.17</staticSunShadowHeight>
+    <castEdgeShadows>True</castEdgeShadows>
+    <designationHotKey>Misc2</designationHotKey>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+  <!-- 十字架 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_BindingCross</defName>
+    <label>Binding Cross</label>
+    <description>A cross shaped framework used to bound prisoners. Previously labeled "True Cross".</description>
+    <graphicData>
+    <texPath>Things/Building/Furniture/Bed/BindingCross</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+	    <drawOffset>(-0.01,0,0.42)</drawOffset>
+      <shadowData>
+	      <volume>(0.3, 0.5, 0.3)</volume>
+	      <offset>(-0.01,0,0.22)</offset>
+      </shadowData>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>    
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <pawnDrawOffset>
+          <drawOffset>(0,0,0.8)</drawOffset>
+        </pawnDrawOffset>
+      </li>      
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <TerrorSource MayRequire="Ludeon.RimWorld.Ideology">40</TerrorSource>
+      <Beauty>1</Beauty>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.09</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,1)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>45</costStuffCount>
+    <!-- 额外固定消耗 -->
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>-1</bed_healPerDay>
+    </building>
+    <fillPercent>0.2</fillPercent>
+    <pathCost>60</pathCost>
+    <coversFloor>false</coversFloor>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <holdsRoof>false</holdsRoof>
+    <designationHotKey>Misc2</designationHotKey>
+    <uiIconPath>Things/Building/Furniture/Bed/BindingCross_south</uiIconPath>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+  <!-- X形十字架 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_SaltireCross</defName>
+    <label>Saltire Cross</label>
+    <description>An X-shaped framework used to bound prisoners in spreadeagle position, commonly known as X-cross, X-frame, or saltire cross. Previously labeled "Torture Cross".</description>
+    <graphicData>
+    <texPath>Things/Building/Furniture/Bed/SaltireCross</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+		  <drawOffset>(0.025,0,0.312)</drawOffset>
+      <shadowData>
+		    <volume>(1.3, 0.5, 0.3)</volume>
+		    <offset>(-0.02,0,0.37)</offset>
+		  </shadowData>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>   
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <pawnDrawOffset>
+          <drawOffset>(0,0,0.8)</drawOffset>
+        </pawnDrawOffset>
+      </li>      
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <TerrorSource MayRequire="Ludeon.RimWorld.Ideology">40</TerrorSource>
+      <Beauty>1</Beauty>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.09</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,1)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>45</costStuffCount>
+    <!-- 额外固定消耗 -->
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>-1</bed_healPerDay>
+    </building>
+    <fillPercent>0.2</fillPercent>
+    <pathCost>60</pathCost>
+    <coversFloor>false</coversFloor>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <holdsRoof>false</holdsRoof>
+    <designationHotKey>Misc2</designationHotKey>  
+    <uiIconPath>Things/Building/Furniture/Bed/SaltireCross_south</uiIconPath>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+  <!-- 挂笼 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_RoundCage</defName>
+    <label>Round Cage</label>
+    <description>A gibbet cage for living prisoners.</description>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/RoundCage</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3)</drawSize>
+	    <drawOffset>(0,0,0.312)</drawOffset>
+      <shadowData>
+	      <volume>(1.0, 0.5, 0.3)</volume>
+	      <offset>(0,0,0.312)</offset>
+	    </shadowData>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>	
+	  <drawerType>MapMeshAndRealTime</drawerType>    
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <pawnDrawOffset>
+          <drawOffset>(0,0,0.63)</drawOffset>
+        </pawnDrawOffset>
+        <gas>
+          <li>
+            <graphicData>
+              <texPath>Things/Building/Furniture/Bed/RoundCageLayerA</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <shaderType>CutoutComplex</shaderType>
+              <drawSize>(3,3)</drawSize>
+		          <drawOffset>(0,0,0.312)</drawOffset>
+            </graphicData>    
+            <altitudeLayer>Pawn</altitudeLayer>				
+          </li>
+        </gas>
+      </li>    
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <TerrorSource MayRequire="Ludeon.RimWorld.Ideology">40</TerrorSource>  
+      <Beauty>1</Beauty>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.09</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,1)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+    </stuffCategories>
+    <costStuffCount>50</costStuffCount>
+    <!-- 额外固定消耗 -->
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>1</bed_healPerDay>
+    </building>
+    <fillPercent>0.2</fillPercent>
+    <pathCost>60</pathCost>
+    <coversFloor>false</coversFloor>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <holdsRoof>false</holdsRoof>
+    <designationHotKey>Misc2</designationHotKey>    
+		<uiIconPath>Things/Building/Furniture/Bed/RoundCage_south</uiIconPath>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+  <!-- 囚犯柱 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_PrisonerPole</defName> 
+    <label>Prisoner Pole</label>
+    <description>A simple, tall pole used to bound prisoners.</description>      
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/PrisonerPole</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(2,2)</drawSize>
+			<drawOffset>(0,0,0.46)</drawOffset>
+      <shadowData>
+			  <volume>(0.25, 0.5, 0.25)</volume>
+			  <offset>(0.02,0,0.44)</offset>
+		  </shadowData>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+    </graphicData>
+		<drawerType>MapMeshAndRealTime</drawerType>
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <pawnDrawOffset>
+          <drawOffset>(0,0,0.8)</drawOffset>
+        </pawnDrawOffset>
+      </li>
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <TerrorSource MayRequire="Ludeon.RimWorld.Ideology">30</TerrorSource>
+      <Beauty>1</Beauty>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.09</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,1)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>45</costStuffCount>
+    <!-- 额外固定消耗 -->
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>-1</bed_healPerDay>
+    </building>
+    <fillPercent>0.2</fillPercent>
+    <pathCost>60</pathCost>
+    <coversFloor>false</coversFloor>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <holdsRoof>false</holdsRoof>
+    <designationHotKey>Misc2</designationHotKey>   
+    <uiIconPath>Things/Building/Furniture/Bed/PrisonerPole_south</uiIconPath>
+    <uiIconScale>0.90</uiIconScale>
+  </ThingDef>
+
+  <!-- 颈手枷 -->
+  <ThingDef ParentName="DDJY_BaseBondageBed">
+    <defName>DDJY_Pillory</defName>
+    <label>Pillory</label>
+    <description>A framework used to bound prisoners, with 3 holes for securing their head and hands.</description>
+    <graphicData>
+      <texPath>Things/Building/Furniture/Bed/Pillory</texPath>
+      <graphicClass>Graphic_Multi</graphicClass>
+      <shaderType>CutoutComplex</shaderType>
+      <drawSize>(3,3)</drawSize>
+			<drawOffset>(0.02,0,0.44)</drawOffset>
+      <shadowData>
+			  <volume>(1.64, 0.5, 0.7)</volume>
+			  <offset>(0.02,0,0.20)</offset>
+		  </shadowData>
+      <damageData>
+        <rect>(0,0.05,1,1.95)</rect>
+      </damageData>
+      </graphicData>
+		<drawerType>MapMeshAndRealTime</drawerType>
+    <comps>
+      <li Class="DDJY_BED.CompProperties_LayerExtension">
+        <compClass>DDJY_BED.CompLayerExtension</compClass>
+        <pawnDrawOffset>
+          <drawOffset>(0,0,0.64)</drawOffset>
+        </pawnDrawOffset>
+        <gas>
+          <li>
+            <graphicData>
+              <texPath>Things/Building/Furniture/Bed/PilloryLayerA</texPath>
+              <graphicClass>Graphic_Multi</graphicClass>
+              <shaderType>CutoutComplex</shaderType>
+              <drawSize>(3,3)</drawSize>
+		          <drawOffset>(0.02,0,0.44)</drawOffset>
+            </graphicData>    
+           <altitudeLayer>Pawn</altitudeLayer>				
+          </li>
+        </gas>
+      </li>      
+    </comps>
+    <statBases>
+      <MaxHitPoints>140</MaxHitPoints>
+      <Flammability>1.0</Flammability>
+      <TerrorSource MayRequire="Ludeon.RimWorld.Ideology">30</TerrorSource>
+      <Beauty>1</Beauty>
+      <WorkToBuild>800</WorkToBuild>
+      <Mass>30</Mass>
+      <BedRestEffectiveness>1</BedRestEffectiveness>
+      <Comfort>0.09</Comfort>
+      <ImmunityGainSpeedFactor>1.07</ImmunityGainSpeedFactor>
+      <SurgerySuccessChanceFactor>1</SurgerySuccessChanceFactor>
+    </statBases>
+    <size>(1,1)</size>
+    <!-- 混合材料 -->
+    <stuffCategories>
+      <li>Metallic</li>
+      <li>Woody</li>
+      <li>Stony</li>
+    </stuffCategories>
+    <costStuffCount>45</costStuffCount>
+    <!-- 额外固定消耗 -->
+		<costList>
+      <WoodLog>20</WoodLog>
+    </costList>
+    <building>
+      <bed_showSleeperBody>true</bed_showSleeperBody>
+      <bed_healPerDay>1</bed_healPerDay>
+    </building>
+    <fillPercent>0.2</fillPercent>
+    <pathCost>60</pathCost>
+    <coversFloor>false</coversFloor>
+    <rotatable>false</rotatable>
+    <selectable>true</selectable>
+    <neverMultiSelect>true</neverMultiSelect>
+    <holdsRoof>false</holdsRoof>
+    <designationHotKey>Misc2</designationHotKey>    
+		<uiIconPath>Things/Building/Furniture/Bed/Pillory_south</uiIconPath>
+    <uiIconScale>0.90</uiIconScale>    
+  </ThingDef>
+
+</Defs>
