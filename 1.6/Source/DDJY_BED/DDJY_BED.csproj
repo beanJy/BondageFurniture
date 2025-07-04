@@ -44,6 +44,10 @@
       <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\HarmonyMod.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="PipeSystem">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2023507013\1.6\Assemblies\PipeSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,6 +64,10 @@
       <HintPath>..\..\..\..\..\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="VNPE">
+      <HintPath>..\..\..\..\..\..\..\workshop\content\294100\2920385763\1.5\Assemblies\VNPE.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Building_BondageBed.cs" />
@@ -68,12 +76,11 @@
     <Compile Include="CompProperties_LayerExtension.cs" />
     <Compile Include="DDJY_HediffDefOf.cs" />
     <Compile Include="DDJY_JobDefOf.cs" />
-    <Compile Include="DDJY_Toils_LayDown.cs" />
-    <Compile Include="JobDriver_LayDownBind.cs" />
     <Compile Include="JobDriver_TakeToBondageBed.cs" />
     <Compile Include="JobDriver_GoToUnbind.cs" />
-    <Compile Include="PatchMain.cs" />
+    <Compile Include="Patch\BondageBed_Patch.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Patch\VNPE_Patch.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Patch>
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Vanilla Nutrient Paste Expanded</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="DDJY_BaseBondageBed"]/comps</xpath>
+      <value>
+        <li Class="PipeSystem.CompProperties_Resource">
+          <pipeNet>VNPE_NutrientPasteNet</pipeNet>
+           <resourceLabelKey>VNPE_NutrientPasteNet_ResourceLabel</resourceLabelKey>
+        </li>
+      </value>
+    </match>
+  </Operation>
+
+  <Operation Class="PatchOperationFindMod">
+    <mods>
+      <li>Vanilla Nutrient Paste Expanded</li>
+    </mods>
+    <match Class="PatchOperationAdd">
+      <xpath>/Defs/ThingDef[defName="DDJY_BaseBondageBed"]</xpath>
+      <value>
+        <tickerType>Rare</tickerType>
+      </value>
+    </match>
+  </Operation>
+</Patch>

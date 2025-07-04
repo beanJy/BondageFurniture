@@ -12,7 +12,6 @@ namespace DDJY_BED
         }
 
         public static JobDef DDJY_TakeToBondageBed;
-        public static JobDef DDJY_LayDownBind;
         public static JobDef DDJY_GoToUnbind;
     }
 }

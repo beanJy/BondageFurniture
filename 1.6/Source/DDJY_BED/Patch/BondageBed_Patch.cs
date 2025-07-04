@@ -4,53 +4,31 @@ using RimWorld;
 using Verse;
 using Verse.AI;
 using System;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Reflection.Emit;
+using System.Linq;
 using static HarmonyLib.Code;
-using DDJY_BED;
-using System.Runtime.InteropServices;
+using PipeSystem;
+using VNPE;
 
 namespace DDJY_BED.Patch
 {
     //HarmonyLib初始化
     [StaticConstructorOnStartup]
-    public class PatchMain
+    public class Building_BondageBed_Patch
     {
 
-        static PatchMain()
+        static Building_BondageBed_Patch()
         {
-            PatchMain.instance.PatchAll(Assembly.GetExecutingAssembly());
+            instance.PatchCategory("Building_BondageBed");
         }
 
 
-        public static Harmony instance = new Harmony("DDJY_BED");
-    }
-    //当 bed 为 bondagebed 时,Toils_Bed.TuckIntoBed 中的 LayDown 替换为 DDJY_BindLayDown
-    [HarmonyPatch(typeof(Pawn_JobTracker), "Notify_TuckedIntoBed")]
-    internal class Pawn_JobTracker_Notify_TuckedIntoBed_Patch
-    {
-        private static bool Prefix(Pawn_JobTracker __instance, Building_Bed bed)
-        {
-            if (bed is Building_BondageBed)
-            {
-                FieldInfo pawnField = AccessTools.Field(typeof(Pawn_JobTracker), "pawn");
-                if (pawnField != null)
-                {
-                    Pawn pawn = (Pawn)pawnField.GetValue(__instance);
-                    pawn.Position = RestUtility.GetBedSleepingSlotPosFor(pawn, bed);
-                    pawn.Notify_Teleported(false, true);
-                    pawn.stances.CancelBusyStanceHard();
-                    JobDef jobDef = DDJY_JobDefOf.DDJY_LayDownBind;
-                    __instance.StartJob(JobMaker.MakeJob(jobDef, bed), JobCondition.InterruptForced, null, false, true, null, new JobTag?(JobTag.TuckedIntoBed), false, false, null, true, true);
-                    return false;
-                }
-            }
-            return true;
-        }
+        public static Harmony instance = new Harmony("Building_BondageBed_Patch");
     }
 
     //bondagebed 不会被自动分配给 pawn
+    [HarmonyPatchCategory("Building_BondageBed")]
     [HarmonyPatch(typeof(RestUtility), "IsValidBedFor")]
     internal class RestUtility_IsValidBedFor
     {
@@ -66,6 +44,7 @@ namespace DDJY_BED.Patch
     }
 
     //pawn从床上意外掉落可被送回床上
+    [HarmonyPatchCategory("Building_BondageBed")]
     [HarmonyPatch(typeof(RestUtility), "FindBedFor", new Type[] { typeof(Pawn), typeof(Pawn), typeof(bool), typeof(bool), typeof(GuestStatus?) })]
     internal class RestUtility_FindBedFor_Patch
     {
@@ -78,44 +57,9 @@ namespace DDJY_BED.Patch
             }
             return true;
         }
-
-        //    //public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
-        //    //{
-        //    //    var codes = new List<CodeInstruction>(instructions);
-        //    //    CodeInstruction ldfldSleepr = null;
-        //    //    var label1 = generator.DefineLabel();
-
-        //    //    for (var i = 0; i < codes.Count; i++)
-        //    //    {   
-        //    //        yield return codes[i];
-        //    //        if( ldfldSleepr == null && codes[i].opcode == OpCodes.Stfld && codes[i].operand is FieldInfo fieldInfo && fieldInfo.Name == "sleeper")
-        //    //        {
-        //    //            //Log.Message(codes[i].operand.ToString());
-        //    //            ldfldSleepr = new CodeInstruction(OpCodes.Ldfld, codes[i].operand);
-        //    //        }
-        //    //        if (i > 1)
-        //    //        {
-        //    //            if
-        //    //            (
-        //    //                codes[i - 2].opcode == OpCodes.Ldfld && codes[i - 2].operand is FieldInfo fieldInfo1 && fieldInfo1.Name == "sleeper" &&
-        //    //                codes[i - 1].opcode == OpCodes.Call && codes[i - 1].operand is MethodInfo methodInfo2 && methodInfo2.Name == "CurrentBed" &&
-        //    //                codes[i].opcode == OpCodes.Callvirt && codes[i].operand is MethodInfo methodInfo1 && methodInfo1.Name == "get_Medical" 
-
-        //    //            )
-        //    //            {
-        //    //                yield return new CodeInstruction(OpCodes.Brtrue_S, label1);
-        //    //                yield return new CodeInstruction(OpCodes.Ldloc_0);
-        //    //                yield return ldfldSleepr;
-        //    //                yield return new CodeInstruction(OpCodes.Ldfld, typeof(Pawn).GetField("ownership"));
-        //    //                yield return new CodeInstruction(OpCodes.Callvirt, typeof(Pawn_Ownership).GetProperty("OwnedBed").GetMethod);
-        //    //                yield return new CodeInstruction(OpCodes.Isinst, typeof(Building_BondageBed));
-        //    //                codes[i + 2].labels.Add(label1);
-        //    //            }
-        //    //        }
-        //    //    }
-        //    //}
     }
     //招募自动解绑
+    [HarmonyPatchCategory("Building_BondageBed")]
     [HarmonyPatch(typeof(RestUtility), "CanUseBedNow", new Type[] { typeof(Pawn), typeof(Pawn), typeof(bool), typeof(bool), typeof(GuestStatus?) })]
     internal class RestUtility_CanUseBedNow_Patch
     {
@@ -131,6 +75,7 @@ namespace DDJY_BED.Patch
     }
 
     //调整人物位置
+    [HarmonyPatchCategory("Building_BondageBed")]
     [HarmonyPatch(typeof(PawnRenderer), "GetBodyPos")]
     internal class PawnRenderer_GetBodyPos
     {
@@ -170,5 +115,48 @@ namespace DDJY_BED.Patch
             }
         }
 
+    }
+    //给睡眠状态添加束缚状态和睡眠姿势
+    [HarmonyPatchCategory("Building_BondageBed")]
+    [HarmonyPatch(typeof(Toils_LayDown), nameof(Toils_LayDown.LayDown))]
+    public static class Patch_Toils_LayDown_LayDown
+    {
+        public static void Postfix(ref Toil __result, TargetIndex bedOrRestSpotIndex)
+        {
+            Toil localToil = __result;
+            Action oldInit = localToil.initAction;
+            localToil.initAction = () =>
+            {
+                oldInit?.Invoke();
+                Pawn actor = localToil.actor;
+                if (actor == null || actor.CurJob == null)
+                    return;
+                Thing bedThing = actor.CurJob.GetTarget(bedOrRestSpotIndex).Thing;
+                if (bedThing is Building_BondageBed bondageBed)
+                { 
+                    CompEffectBondageBed compeffectbondagebed = bedThing.TryGetComp<CompEffectBondageBed>();
+                    if (compeffectbondagebed != null)
+                    {
+                        compeffectbondagebed.AddHediff(actor);
+                        actor.jobs.posture = PawnPosture.LayingInBedFaceUp;
+                    }
+                }
+            };
+        }
+    }
+    //束缚床上停止寻找工作
+    [HarmonyPatchCategory("Building_BondageBed")]
+    [HarmonyPatch(typeof(JobDriver_LayDown))]
+    [HarmonyPatch("LookForOtherJobs", MethodType.Getter)]
+    public static class Patch_JobDriver_LayDown_LookForOtherJobs_Getter
+    {
+        public static void Postfix(JobDriver_LayDown __instance, ref bool __result)
+        {
+            var bed = __instance.Bed;
+            if (bed is Building_BondageBed)
+            {
+                __result = false;
+            }
+        }
     }
 }

@@ -26,7 +26,7 @@ namespace DDJY_BED
             yield break;
         }
         //不显示占有者状态
-        public override void DrawGUIOverlay(){ return; }
+        public override void DrawGUIOverlay() { return; }
         //放置初始化建筑
         public override void SpawnSetup(Map map, bool respawningAfterLoad)
         {
@@ -38,11 +38,12 @@ namespace DDJY_BED
         public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
         {
             if (this.OwnersForReading.Count > 0)
-            {   
-                foreach(Pawn pawn in this.OwnersForReading)
+            {
+                foreach (Pawn pawn in this.OwnersForReading)
                 {
                     CompEffectBondageBed compEffectBondageBed = this.GetComp<CompEffectBondageBed>();
-                    if(compEffectBondageBed !=null) {
+                    if (compEffectBondageBed != null)
+                    {
                         compEffectBondageBed.RemoveHediff(pawn);
                         //this.occupants = null;
                     }
@@ -69,9 +70,10 @@ namespace DDJY_BED
             {
                 if (this.OwnersForReading.Count > 0)
                 {
-                    foreach(Pawn pawn in this.OwnersForReading)
+                    foreach (Pawn pawn in this.OwnersForReading)
                     {
-                        Action action = delegate () {
+                        Action action = delegate ()
+                        {
                             Job job = JobMaker.MakeJob(DDJY_JobDefOf.DDJY_GoToUnbind, this, pawn);
                             job.count = 1;
                             myPawn.jobs.TryTakeOrderedJob(job, new JobTag?(JobTag.Misc), false);
@@ -89,10 +91,11 @@ namespace DDJY_BED
                     }
                     else
                     {
-                        foreach (Pawn prisoners in BindablePawnList) {
+                        foreach (Pawn prisoners in BindablePawnList)
+                        {
                             Action action = delegate ()
                             {
-                                if ( myPawn.CanReserveAndReach(this, PathEndMode.ClosestTouch, Danger.Deadly, this.SleepingSlotsCount, -1, null, true))
+                                if (myPawn.CanReserveAndReach(this, PathEndMode.ClosestTouch, Danger.Deadly, this.SleepingSlotsCount, -1, null, true))
                                 {
                                     Job job = JobMaker.MakeJob(DDJY_JobDefOf.DDJY_TakeToBondageBed, prisoners, this);
                                     job.count = 1;
@@ -118,6 +121,10 @@ namespace DDJY_BED
                 }
             }
             return newList;
+        }
+        public override void TickRare()
+        {
+            base.TickRare();
         }
     }
 }
