@@ -9,7 +9,6 @@
       <value>
         <li Class="PipeSystem.CompProperties_Resource">
           <pipeNet>VNPE_NutrientPasteNet</pipeNet>
-           <resourceLabelKey>VNPE_NutrientPasteNet_ResourceLabel</resourceLabelKey>
         </li>
       </value>
     </match>
