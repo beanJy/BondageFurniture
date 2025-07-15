@@ -20,9 +20,7 @@ namespace DDJY_BED
             {
                 yield return gizmo;
             }
-            IEnumerator<Gizmo> enumerator = null;
             this.factionInt = currentFaction;
-            yield break;
             yield break;
         }
         //不显示占有者状态
@@ -37,19 +35,20 @@ namespace DDJY_BED
         //移除时执行
         public override void DeSpawn(DestroyMode mode = DestroyMode.Vanish)
         {
-            if (this.OwnersForReading.Count > 0)
+            if (mode != DestroyMode.WillReplace)
             {
-                foreach (Pawn pawn in this.OwnersForReading)
+                if (this.OwnersForReading.Count > 0)
                 {
-                    CompEffectBondageBed compEffectBondageBed = this.GetComp<CompEffectBondageBed>();
-                    if (compEffectBondageBed != null)
+                    foreach (Pawn pawn in this.OwnersForReading)
                     {
-                        compEffectBondageBed.RemoveHediff(pawn);
-                        //this.occupants = null;
+                        CompEffectBondageBed compEffectBondageBed = this.GetComp<CompEffectBondageBed>();
+                        if (compEffectBondageBed != null)
+                        {
+                            compEffectBondageBed.RemoveHediff(pawn);
+                        }
                     }
                 }
             }
-            Building_BondageBed building_bed = null;
             base.DeSpawn(mode);
 
         }

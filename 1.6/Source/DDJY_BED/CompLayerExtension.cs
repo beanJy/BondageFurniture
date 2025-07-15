@@ -26,13 +26,13 @@ namespace DDJY_BED
                 ga.graphicData.Graphic.Draw(GenThing.TrueCenter(this.parent.Position, this.parent.Rotation, this.parent.def.size, ga.altitudeLayer.AltitudeFor()), this.parent.Rotation, this.parent, 0f);
             }
         }
-        public Vector3 ChangePawnDrawOffset(Vector3 pawnLoc)
+        public Rot4 ChangePawnRotation(Rot4 rotation)
         {
-            if (this.Props.pawnDrawOffset != null) { 
-            
-                return pawnLoc + this.Props.pawnDrawOffset.drawOffset;
+            if(this.Props.keepFaceUp == true)
+            {
+                rotation.AsInt = 0;
             }
-            return pawnLoc;
+            return rotation;
         }
     }
 }

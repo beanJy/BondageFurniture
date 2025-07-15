@@ -18,8 +18,6 @@ namespace DDJY_BED
 
             public GraphicData graphicData;
         }
-        public GraphicData pawnDrawOffset;
-
-
+        public bool keepFaceUp;
     }
 }

@@ -1,15 +1,11 @@
-﻿using System.Reflection;
-using HarmonyLib;
+﻿using HarmonyLib;
 using RimWorld;
 using Verse;
 using Verse.AI;
 using System;
 using System.Collections.Generic;
 using System.Reflection.Emit;
-using System.Linq;
 using static HarmonyLib.Code;
-using PipeSystem;
-using VNPE;
 
 namespace DDJY_BED.Patch
 {
@@ -74,10 +70,10 @@ namespace DDJY_BED.Patch
         }
     }
 
-    //调整人物位置
+    //调整人物角度
     [HarmonyPatchCategory("Building_BondageBed")]
-    [HarmonyPatch(typeof(PawnRenderer), "GetBodyPos")]
-    internal class PawnRenderer_GetBodyPos
+    [HarmonyPatch(typeof(PawnRenderer), "BodyAngle")]
+    internal class PawnRenderer_BodyAngle
     {
         public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions, ILGenerator generator)
         {
@@ -91,25 +87,24 @@ namespace DDJY_BED.Patch
                 {
                     if
                     (
-                        codes[i - 4].ToString() == "ldloc.s 5 (UnityEngine.Vector3)" &&
-                        codes[i - 3].ToString() == "ldloc.s 4 (System.Single)" &&
-                        codes[i - 2].ToString() == "call static UnityEngine.Vector3 UnityEngine.Vector3::op_Multiply(UnityEngine.Vector3 a, System.Single d)" &&
-                        codes[i - 1].ToString() == "call static UnityEngine.Vector3 UnityEngine.Vector3::op_Subtraction(UnityEngine.Vector3 a, UnityEngine.Vector3 b)" &&
-                        codes[i].ToString() == "stloc.0 NULL"
+                        codes[i - 3].ToString() == "call System.Int32 Verse.Rot4::get_AsInt()" &&
+                        codes[i - 2].opcode == OpCodes.Ldc_I4_2 &&
+                        codes[i - 1].opcode == OpCodes.Add &&
+                        codes[i].ToString() == "call System.Void Verse.Rot4::set_AsInt(System.Int32 value)"
                     )
                     {
-                        yield return Ldloc_1;
+
+                        yield return Ldloc_0;
                         yield return Isinst[typeof(Building_BondageBed)];
                         yield return Brfalse[label1]; // 如果对象引用为空，则跳转到标签 label1
                         ////对象引用不为空，可以进行后续操作
-                        yield return Ldloc_1;
+                        yield return Ldloc_0;
                         yield return Call[typeof(ThingCompUtility).GetMethod("TryGetComp", new Type[] { typeof(Thing) }).MakeGenericMethod(typeof(CompLayerExtension))]; // 调用 TryGetComp<CompLayerExtension>() 方法
-                        yield return Ldloc_0; // 加载局部变量0 (__result) 的值
-                        yield return Call[typeof(CompLayerExtension).GetMethod("ChangePawnDrawOffset")]; // 调用 ChangePawnDrawOffset(__result) 方法
-                        yield return Stloc_0; // 将结果存储回局部变量0 (__result)
+                        yield return Ldloc_S[4]; // 加载局部变量4 (rotation) 的值
+                        yield return Call[typeof(CompLayerExtension).GetMethod("ChangePawnRotation")]; // 调用 ChangePawnRotation(rotation) 方法
+                        yield return Stloc_S[4]; // 将结果存储回局部变量4 (rotation)
 
                         yield return new CodeInstruction(OpCodes.Nop).WithLabels(label1);
-
                     }
                 }
             }

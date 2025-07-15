@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Defs>
 
- <ThingDef Name="DDJY_BaseBondageBed" ParentName="FurnitureWithQualityBase" Abstract="True"> 
+ <ThingDef Name="DDJY_BaseBondageBed" ParentName="FurnitureBase" Abstract="True"> 
     <defName>DDJY_BaseBondageBed</defName>
     <thingClass>DDJY_BED.Building_BondageBed</thingClass>
+    <altitudeLayer>Building</altitudeLayer>
     <drawGUIOverlay>true</drawGUIOverlay>
     <canOverlapZones>false</canOverlapZones>
     <placeWorkers>
       <li>PlaceWorker_ShowFacilitiesConnections</li>
     </placeWorkers>
     <passability>PassThroughOnly</passability>
-    <defaultPlacingRot>South</defaultPlacingRot>
+    <building>
+      <bed_canBeMedical>false</bed_canBeMedical>
+      <bed_countsForBedroomOrBarracks>false</bed_countsForBedroomOrBarracks>
+    </building>
     <comps>
       <!-- 设施影响 梳妆台 桌子之类  继承bed必须实现的接口，没有使用到-->
       <li Class="CompProperties_AffectedByFacilities">
@@ -28,11 +32,13 @@
       </li>
     </comps>
  </ThingDef>
+
   <!-- 束缚床 -->
   <ThingDef ParentName="DDJY_BaseBondageBed">
     <defName>DDJY_BondageBed</defName>
     <label>bondageBed</label>
     <description>Bound prisoners on it to make sure that they can't make trouble for you.</description>
+    <defaultPlacingRot>South</defaultPlacingRot>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/BondageBed</texPath>
       <graphicClass>Graphic_Multi</graphicClass>
@@ -84,7 +90,7 @@
     </costList>
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
-      <bed_healPerDay>4</bed_healPerDay>
+      <bed_healPerDay>2</bed_healPerDay>
     </building>
     <fillPercent>0.4</fillPercent>
     <pathCost>60</pathCost>
@@ -108,6 +114,7 @@
         <rect>(0,0.05,1,1.95)</rect>
       </damageData>
     </graphicData>
+    <defaultPlacingRot>South</defaultPlacingRot>
     <drawerType>MapMeshAndRealTime</drawerType>
     <comps>
       <li Class="DDJY_BED.CompProperties_LayerExtension">
@@ -146,7 +153,7 @@
     <!-- 额外固定消耗 -->
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
-      <bed_healPerDay>4</bed_healPerDay>
+      <bed_healPerDay>0</bed_healPerDay>
     </building>
     <fillPercent>0.4</fillPercent>
     <pathCost>60</pathCost>
@@ -161,8 +168,8 @@
     <label>Binding Cross</label>
     <description>A cross shaped framework used to bound prisoners. Previously labeled "True Cross".</description>
     <graphicData>
-    <texPath>Things/Building/Furniture/Bed/BindingCross</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
+      <texPath>Things/Building/Furniture/Bed/BindingCross</texPath>
+      <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
 	    <drawOffset>(-0.01,0,0.42)</drawOffset>
@@ -173,13 +180,11 @@
       <damageData>
         <rect>(0,0.05,1,1.95)</rect>
       </damageData>
-    </graphicData>    
+    </graphicData>
     <comps>
       <li Class="DDJY_BED.CompProperties_LayerExtension">
         <compClass>DDJY_BED.CompLayerExtension</compClass>
-        <pawnDrawOffset>
-          <drawOffset>(0,0,0.8)</drawOffset>
-        </pawnDrawOffset>
+        <keepFaceUp>true</keepFaceUp>
       </li>      
     </comps>
     <statBases>
@@ -206,6 +211,7 @@
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
       <bed_healPerDay>-1</bed_healPerDay>
+      <bed_pawnDrawOffset>0.1</bed_pawnDrawOffset>
     </building>
     <fillPercent>0.2</fillPercent>
     <pathCost>60</pathCost>
@@ -215,7 +221,7 @@
     <neverMultiSelect>true</neverMultiSelect>
     <holdsRoof>false</holdsRoof>
     <designationHotKey>Misc2</designationHotKey>
-    <uiIconPath>Things/Building/Furniture/Bed/BindingCross_south</uiIconPath>
+    <uiIconPath>Things/Building/Furniture/Bed/BindingCross</uiIconPath>
     <uiIconScale>0.90</uiIconScale>
   </ThingDef>
   <!-- X形十字架 -->
@@ -225,7 +231,7 @@
     <description>An X-shaped framework used to bound prisoners in spreadeagle position, commonly known as X-cross, X-frame, or saltire cross. Previously labeled "Torture Cross".</description>
     <graphicData>
     <texPath>Things/Building/Furniture/Bed/SaltireCross</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
+      <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
 		  <drawOffset>(0.025,0,0.312)</drawOffset>
@@ -236,13 +242,11 @@
       <damageData>
         <rect>(0,0.05,1,1.95)</rect>
       </damageData>
-    </graphicData>   
+    </graphicData>
     <comps>
       <li Class="DDJY_BED.CompProperties_LayerExtension">
         <compClass>DDJY_BED.CompLayerExtension</compClass>
-        <pawnDrawOffset>
-          <drawOffset>(0,0,0.8)</drawOffset>
-        </pawnDrawOffset>
+        <keepFaceUp>true</keepFaceUp>
       </li>      
     </comps>
     <statBases>
@@ -269,6 +273,7 @@
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
       <bed_healPerDay>-1</bed_healPerDay>
+      <bed_pawnDrawOffset>0.1</bed_pawnDrawOffset>
     </building>
     <fillPercent>0.2</fillPercent>
     <pathCost>60</pathCost>
@@ -278,7 +283,7 @@
     <neverMultiSelect>true</neverMultiSelect>
     <holdsRoof>false</holdsRoof>
     <designationHotKey>Misc2</designationHotKey>  
-    <uiIconPath>Things/Building/Furniture/Bed/SaltireCross_south</uiIconPath>
+    <uiIconPath>Things/Building/Furniture/Bed/SaltireCross</uiIconPath>
     <uiIconScale>0.90</uiIconScale>
   </ThingDef>
   <!-- 挂笼 -->
@@ -288,7 +293,7 @@
     <description>A gibbet cage for living prisoners.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/RoundCage</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
+      <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(3,3)</drawSize>
 	    <drawOffset>(0,0,0.312)</drawOffset>
@@ -299,19 +304,16 @@
       <damageData>
         <rect>(0,0.05,1,1.95)</rect>
       </damageData>
-    </graphicData>	
+    </graphicData>
 	  <drawerType>MapMeshAndRealTime</drawerType>    
     <comps>
       <li Class="DDJY_BED.CompProperties_LayerExtension">
         <compClass>DDJY_BED.CompLayerExtension</compClass>
-        <pawnDrawOffset>
-          <drawOffset>(0,0,0.63)</drawOffset>
-        </pawnDrawOffset>
         <gas>
           <li>
             <graphicData>
               <texPath>Things/Building/Furniture/Bed/RoundCageLayerA</texPath>
-              <graphicClass>Graphic_Multi</graphicClass>
+              <graphicClass>Graphic_Single</graphicClass>
               <shaderType>CutoutComplex</shaderType>
               <drawSize>(3,3)</drawSize>
 		          <drawOffset>(0,0,0.312)</drawOffset>
@@ -319,6 +321,7 @@
             <altitudeLayer>Pawn</altitudeLayer>				
           </li>
         </gas>
+        <keepFaceUp>true</keepFaceUp>
       </li>    
     </comps>
     <statBases>
@@ -342,7 +345,8 @@
     <!-- 额外固定消耗 -->
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
-      <bed_healPerDay>1</bed_healPerDay>
+      <bed_healPerDay>0</bed_healPerDay>
+      <bed_pawnDrawOffset>-0.1</bed_pawnDrawOffset>
     </building>
     <fillPercent>0.2</fillPercent>
     <pathCost>60</pathCost>
@@ -352,7 +356,7 @@
     <neverMultiSelect>true</neverMultiSelect>
     <holdsRoof>false</holdsRoof>
     <designationHotKey>Misc2</designationHotKey>    
-		<uiIconPath>Things/Building/Furniture/Bed/RoundCage_south</uiIconPath>
+		<uiIconPath>Things/Building/Furniture/Bed/RoundCage</uiIconPath>
     <uiIconScale>0.90</uiIconScale>
   </ThingDef>
   <!-- 囚犯柱 -->
@@ -362,7 +366,7 @@
     <description>A simple, tall pole used to bound prisoners.</description>      
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/PrisonerPole</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
+      <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(2,2)</drawSize>
 			<drawOffset>(0,0,0.46)</drawOffset>
@@ -378,9 +382,7 @@
     <comps>
       <li Class="DDJY_BED.CompProperties_LayerExtension">
         <compClass>DDJY_BED.CompLayerExtension</compClass>
-        <pawnDrawOffset>
-          <drawOffset>(0,0,0.8)</drawOffset>
-        </pawnDrawOffset>
+        <keepFaceUp>true</keepFaceUp>
       </li>
     </comps>
     <statBases>
@@ -407,6 +409,7 @@
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
       <bed_healPerDay>-1</bed_healPerDay>
+      <bed_pawnDrawOffset>0.1</bed_pawnDrawOffset>
     </building>
     <fillPercent>0.2</fillPercent>
     <pathCost>60</pathCost>
@@ -416,7 +419,7 @@
     <neverMultiSelect>true</neverMultiSelect>
     <holdsRoof>false</holdsRoof>
     <designationHotKey>Misc2</designationHotKey>   
-    <uiIconPath>Things/Building/Furniture/Bed/PrisonerPole_south</uiIconPath>
+    <uiIconPath>Things/Building/Furniture/Bed/PrisonerPole</uiIconPath>
     <uiIconScale>0.90</uiIconScale>
   </ThingDef>
 
@@ -427,7 +430,7 @@
     <description>A framework used to bound prisoners, with 3 holes for securing their head and hands.</description>
     <graphicData>
       <texPath>Things/Building/Furniture/Bed/Pillory</texPath>
-      <graphicClass>Graphic_Multi</graphicClass>
+      <graphicClass>Graphic_Single</graphicClass>
       <shaderType>CutoutComplex</shaderType>
       <drawSize>(3,3)</drawSize>
 			<drawOffset>(0.02,0,0.44)</drawOffset>
@@ -438,19 +441,16 @@
       <damageData>
         <rect>(0,0.05,1,1.95)</rect>
       </damageData>
-      </graphicData>
+    </graphicData>
 		<drawerType>MapMeshAndRealTime</drawerType>
     <comps>
       <li Class="DDJY_BED.CompProperties_LayerExtension">
         <compClass>DDJY_BED.CompLayerExtension</compClass>
-        <pawnDrawOffset>
-          <drawOffset>(0,0,0.64)</drawOffset>
-        </pawnDrawOffset>
         <gas>
           <li>
             <graphicData>
               <texPath>Things/Building/Furniture/Bed/PilloryLayerA</texPath>
-              <graphicClass>Graphic_Multi</graphicClass>
+              <graphicClass>Graphic_Single</graphicClass>
               <shaderType>CutoutComplex</shaderType>
               <drawSize>(3,3)</drawSize>
 		          <drawOffset>(0.02,0,0.44)</drawOffset>
@@ -458,6 +458,7 @@
            <altitudeLayer>Pawn</altitudeLayer>				
           </li>
         </gas>
+        <keepFaceUp>true</keepFaceUp>
       </li>      
     </comps>
     <statBases>
@@ -486,7 +487,8 @@
     </costList>
     <building>
       <bed_showSleeperBody>true</bed_showSleeperBody>
-      <bed_healPerDay>1</bed_healPerDay>
+      <bed_healPerDay>-1</bed_healPerDay>
+       <bed_pawnDrawOffset>-0.09</bed_pawnDrawOffset>
     </building>
     <fillPercent>0.2</fillPercent>
     <pathCost>60</pathCost>
@@ -496,7 +498,7 @@
     <neverMultiSelect>true</neverMultiSelect>
     <holdsRoof>false</holdsRoof>
     <designationHotKey>Misc2</designationHotKey>    
-		<uiIconPath>Things/Building/Furniture/Bed/Pillory_south</uiIconPath>
+		<uiIconPath>Things/Building/Furniture/Bed/Pillory</uiIconPath>
     <uiIconScale>0.90</uiIconScale>    
   </ThingDef>
 
